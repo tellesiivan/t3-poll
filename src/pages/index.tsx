@@ -2,11 +2,14 @@ import { SignIn, SignOutButton, useUser } from "@clerk/nextjs";
 import styles from "./index.module.css";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { api } from "t3-poll/utils/api";
 
 const Home: NextPage = () => {
   const { user, isSignedIn } = useUser();
 
-  console.log("user", user);
+  const { data } = api.listings.getAll.useQuery();
+
+  console.log("data", data);
 
   return (
     <>
