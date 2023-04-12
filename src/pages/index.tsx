@@ -1,20 +1,14 @@
 import { SignIn, SignOutButton, useUser } from "@clerk/nextjs";
-import styles from "./index.module.css";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { api } from "t3-poll/utils/api";
-import { Button } from "@nextui-org/react";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
-import { useTheme as useNextTheme } from "next-themes";
-import { useTheme, Text } from "@nextui-org/react";
+import { api } from "t3-poll/utils/api";
 
 const Home: NextPage = () => {
   const { user, isSignedIn } = useUser();
 
-  const { data } = api.listings.getAll.useQuery();
-
-  const { isDark, type } = useTheme();
-  const { setTheme } = useNextTheme();
+  const { data, isLoading } = api.listings.getAll.useQuery();
 
   console.log("data", data);
 
@@ -27,14 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         {isSignedIn ? <SignOutButton /> : <SignIn />}
-        <Button
-          color="primary"
-          auto
-          onPress={() => setTheme(isDark ? "light" : "dark")}
-        >
-          The current theme is: {isDark ? "light" : "dark"}
-        </Button>
-        <Text h1>{isSignedIn ? user.firstName : "signin"}</Text>
+        <Button variant="unstyled">Button</Button>
       </main>
     </>
   );
